@@ -1,0 +1,91 @@
+﻿<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>动态创建表格</title>
+  <meta charset="utf-8" />
+  <style>
+    table {
+      width: 600px;
+      border-collapse: collapse;
+      text-align: center;
+    }
+
+    td,
+    th {
+      border: 1px solid #ccc
+    }
+  </style>
+
+</head>
+
+<body>
+  <div id="data">
+    <table>
+      <thead>
+        <tr>
+          <th>姓名</th>
+          <th>薪资</th>
+          <th>年龄</th>
+          <th></th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+  <script>
+    var json = [
+      { "ename": "Tom", "salary": 11000, "age": 25 },
+      { "ename": "John", "salary": 13000, "age": 28 },
+      { "ename": "Mary", "salary": 12000, "age": 25 }
+    ];
+    //0. 先找到id为data的div下的table元素
+    var table=document.querySelector(
+      "#data>table"
+    )
+    //1. 再创建tbody，暂时不要添加到DOM树上
+    var tbody=document.createElement("tbody");
+    
+    //2. 然后遍历json数组中每个员工对象
+    for(var emp of json){
+      //每遍历一个员工对象就创建一个tr，追加到tbody下
+      // var tr=document.createElement("tr");
+      // tbody.appendChild(tr);
+      var tr=tbody.insertRow();
+      //3. 遍历当前员工对象中每个属性
+      //每遍历一个属性，就创建一个td，追加到tr中，并设置td的内容为当前对象的当前属性值
+      for(var key in emp){
+        var td=document.createElement("td");
+        tr.appendChild(td);
+        td.innerHTML=emp[key];
+      }
+      //在为当前行添加完所有的数据格之后，再额外添加一个单元格td
+      var td=document.createElement("td");
+      tr.appendChild(td);
+      //创建一个按钮，放入格中: 
+      var btn=document.createElement("button");
+      btn.innerHTML="×";
+      td.appendChild(btn);
+      //DOM 4步:
+      //1. 查找触发事件的元素: btn
+      //2. 绑定事件处理函数
+      btn.onclick=function(){
+        //this->当前点击的这个删除按钮
+        //3. 查找要修改的元素
+        //本例中: 点按钮删除当前按钮所在的当前行
+        var tr=
+          this.parentElement.parentElement;
+        // btn     td             tr
+        var ename=tr.children[0].innerHTML;
+        //4. 修改元素
+        var bool=confirm(`是否继续删除${ename}吗？`);
+        if(bool==true){
+          table.deleteRow(tr.rowIndex);
+        }
+      }
+    }
+    //当所有子元素tr和td都加入到tbody之后，最后将tbody一次性添加到DOM树。
+    table.appendChild(tbody);
+  </script>
+</body>
+
+</html>

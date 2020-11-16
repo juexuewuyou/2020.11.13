@@ -1,0 +1,29 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<title>事件处理</title>
+<meta charset="utf-8" />
+
+</head>
+<body>
+ 	<form>
+		姓名:<input name="username"/><br>
+		密码:<input type="password" name="pwd"/><br>
+    爱好:<input type="checkbox" name="favs" value="running"/>跑步
+          <input type="checkbox" name="favs" value="swimming"/>游泳
+          <input type="checkbox" name="favs" value="basketball"/>篮球
+          <br>
+		<input type="submit"/>
+	</form>
+  <script>
+    console.log(navigator.userAgent)
+    console.log(navigator.plugins)
+    if(navigator.plugins["chrome PDF Viewer"]!==undefined){
+     document.write(`<h3 style="color:green">已安装PDF插件,可正常浏览</h3>`)
+    }else{
+      document.write(`<h3 style="color:red">未安装PDF,<a href="javascript:;">点此下载</a></h3>`)
+    }
+   
+  </script>
+</body>
+</html>

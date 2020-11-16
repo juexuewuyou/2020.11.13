@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8"/>
+  <title>...</title>
+  <script>
+  </script>
+ </head>
+  
+ <body>
+    <button id="btnShoot">shoot</button><br>
+    <button id="btnAward">获得跟踪导弹</button><br>
+    <button id="btnBreak">失去跟踪导弹</button><br>
+    <script>
+       var btnShoot=document.getElementById("btnShoot");
+       var btnAward=document.getElementById("btnAward");
+       //开局: 当单击发射按钮时，暂时只能发射普通子弹
+       btnShoot.onclick=function(){
+         console.log("发射普通子弹......")
+       }
+       //希望点击btnAward时，可以给btnShoot再多绑定一种新的子弹
+       btnAward.onclick=function(){
+          btnShoot.onclick=function(){
+             alert("发射跟踪导弹=>=>=>")
+          }
+       }
+       //结果: 希望再点btnShoot时，应该发射两种子弹
+    </script>
+ </body>
+</html>
